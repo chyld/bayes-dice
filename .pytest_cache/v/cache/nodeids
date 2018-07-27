@@ -1,3 +1,6 @@
 [
-  "test/test_bayesdice.py::test_class_works"
+  "test/test_bayesdice.py::test_class_works",
+  "test/test_bayesdice.py::test_choose_die",
+  "test/test_bayesdice.py::test_roll_die",
+  "test/test_bayesdice.py::test_update_priors"
 ]
