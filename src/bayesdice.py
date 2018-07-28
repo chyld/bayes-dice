@@ -4,8 +4,8 @@ import random
 class BayesDice:
     # ------------------------------------------------------------ #
     def __init__(self):
-        self.dice = [4, 6, 8]
-        self.data = {die: 0.33 for die in self.dice}
+        self.dice = [4, 6, 8, 12, 20]
+        self.data = {die: 0.20 for die in self.dice}
     # ------------------------------------------------------------ #
 
     def choose_die(self):
