@@ -4,10 +4,8 @@ import random
 class BayesDice:
     # ------------------------------------------------------------ #
     def __init__(self):
-        self.dice = [4, 6, 8, 12, 20]
-        prior = 0.20
-        self.data = {die: prior for die in self.dice}
-        self.die = 0
+        self.dice = [4, 6, 8]
+        self.data = {die: 0.33 for die in self.dice}
     # ------------------------------------------------------------ #
 
     def choose_die(self):
@@ -19,17 +17,16 @@ class BayesDice:
     # ------------------------------------------------------------ #
 
     def update_priors(self, roll):
-        def likelihood(die, roll):
-            if roll > die:
-                return 0
-            return 1 / die
-        denominator = [likelihood(die, roll) * self.data[die] for die in self.dice]
-        for i in range(len(self.dice)):
-            die = self.dice[i]
-            numerator = denominator[i]
-            self.data[die] = numerator / sum(denominator)
+        denominator = list(map(lambda die: (0 if roll > die else (1 / die)) * self.data[die], self.dice))
+        self.data = {self.dice[i]: numerator / sum(denominator) for i, numerator in enumerate(denominator)}
+        self.debug(roll, denominator)
+    # ------------------------------------------------------------ #
+
+    def debug(self, roll, denominator):
+        print('-' * 50)
         print('die:', self.die, 'roll:', roll)
-        for die, prior in self.data.items():
-            print("{} : {:.2f}".format(die, prior))
-        print('\n')
+        print('denominator:', denominator)
+        print('data:', self.data)
+        print('sum of priors:', sum(self.data.values()))
+        print('sum of denominator:', sum(denominator))
     # ------------------------------------------------------------ #
